@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" 
+    integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" 
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Jost:wght@300&display=swap" />
+    <link rel="stylesheet" href="main.css">
+    <title>whether App</title>
+</head>
+<body>
+    <div class="box">
+        <div class="wave"></div>
+        <div class="wave-two"></div>
+        <div class="wave-three"></div>
+
+        <div id="weather">
+            <i class="fas fa-sun" style="color: yellow;"></i>
+        </div>
+
+        <div class="info">
+            <h2 class="location">
+                <i class="fas fa-street-view"></i>{%location%},{%country%}
+            </h2>
+            <p id="date">WED | oct 23 | 10:49AM</p>
+            <h1 class="temp">{%tempval%}&deg;c</h1>
+            <h3 class="tempmin_max">Min {%tempmin%}&deg;c | Max {%tempmax%}&deg;c</h3>
+        </div>
+    </div>
+    <script>
+        const curDate = document.getElementById("date");
+        let Weather = document.getElementById("weather");
+
+        const tempStatus = "{%tempstatus%}";
+
+        //condition to check sunny or cloudy
+        if(tempStatus == "Sunny") {
+            weather.innerHTML = "<i class='fas fa-sun' style='color: yellow;'></i>";
+        }
+         else if(tempStatus == "Cloudy") {
+            weather.innerHTML = "<i class='fas fa-cloud' style='color: grey;'></i>";
+        } 
+        else if(tempStatus == "Rainy") {
+            weather.innerHTML = "<i class='fas fa-cloud-rain' style='color: blue;'></i>";
+        } 
+        else {
+            weather.innerHTML = "<i class='fas fa-sun' style='color: red;'></i>";
+        }
+
+        
+        const getCurrentDay = () => {
+            const weekdays = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri", "Sat"];
+           
+            let currentTime = new Date();
+            let day = weekdays[currentTime.getDay()];
+            return day;
+        };
+
+        
+        const getCurrentTime = () => {
+            var months = ["Jan","Feb","March","April","May","June","July","Aug","Sept","Oct","nov","Dec"];
+
+            var recent = new Date();
+            var month = months[recent.getMonth() + 1];
+            var date = recent.getDate();
+
+            let hours = recent.getHours();
+            let mins = recent.getMinutes();
+
+            let periods = "AM";
+
+            if(hours > 11){
+                periods = "PM";
+                if (hours > 12) hours -= 12;
+            }
+            if (mins < 10){
+                mins = "0" + mins;  
+            }
+
+            return `${month} ${date} | ${hours}:${mins} ${periods}`;
+            
+           };
+
+        curDate.innerHTML = getCurrentDay() + "  |  " + getCurrentTime();
+
+    </script>
+    <script src="index.js"></script>
+</body>
+</html>
+  
